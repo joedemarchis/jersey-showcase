@@ -12,7 +12,7 @@ import twillDetail from "@/assets/twill-detail.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Stitched Archive — A Hockey Jersey Collection" },
+      { title: "Pretty Cool Jerseys — A Hockey Jersey Collection" },
       {
         name: "description",
         content:
