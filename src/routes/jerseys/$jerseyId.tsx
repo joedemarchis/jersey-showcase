@@ -137,7 +137,7 @@ function JerseyDetail() {
                   alt={`${jersey.team} ${jersey.season} ${jersey.type} jersey view ${selectedImageIndex + 1}`}
                   width={1200}
                   height={1600}
-                  className="w-full aspect-[3/4] object-cover bg-vault-surface outline-1 -outline-offset-1 outline-white/5 rounded-[min(1vw,12px)]"
+                  className="w-full aspect-[3/4] object-cover bg-vault-surface outline-1 -outline-offset-1 outline-vault-text/5 rounded-[min(1vw,12px)]"
                 />
 
                 {imageCount > 1 && (
@@ -186,7 +186,7 @@ function JerseyDetail() {
                             "group/thumb overflow-hidden rounded-[min(1vw,12px)] bg-vault-surface text-left outline-1 -outline-offset-1 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-heritage-red " +
                             (isActive
                               ? "outline-heritage-red"
-                              : "outline-white/10 hover:outline-white/35")
+                              : "outline-vault-text/10 hover:outline-vault-text/35")
                           }
                         >
                           <img
