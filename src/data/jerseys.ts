@@ -7,7 +7,7 @@ import jerseyBlackhawks from "@/assets/jersey-blackhawks.jpg";
 import jerseyPenguins from "@/assets/jersey-penguins.jpg";
 import twillDetail from "@/assets/twill-detail.jpg";
 
-export type Era = "All Leagues" | "NCAA" | "NHL" | "CHL" | "";
+export type Era = "All Leagues" | "NCAA" | "NHL" | "CHL";
 
 export interface Jersey {
   id: string;
