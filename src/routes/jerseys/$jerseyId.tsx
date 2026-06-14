@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { jerseys, twillDetail } from "@/data/jerseys";
+import { jerseys } from "@/data/jerseys";
 
 export const Route = createFileRoute("/jerseys/$jerseyId")({
   head: ({ params }) => {
@@ -54,8 +55,11 @@ function NotFound() {
 function JerseyDetail() {
   const { jerseyId } = Route.useParams();
   const jersey = jerseys.find((j) => j.id === jerseyId);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   if (!jersey) return <NotFound />;
+
+  const selectedImage = jersey.images[selectedImageIndex] ?? jersey.images[0];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -79,23 +83,50 @@ function JerseyDetail() {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-7 space-y-6">
             <img
-              src={jersey.images[0]}
-              alt={`${jersey.team} ${jersey.season} ${jersey.type} jersey`}
+              src={selectedImage}
+              alt={`${jersey.team} ${jersey.season} ${jersey.type} jersey view ${selectedImageIndex + 1}`}
               width={1200}
               height={1600}
               className="w-full aspect-[3/4] object-cover bg-vault-surface outline-1 -outline-offset-1 outline-white/5 rounded-[min(1vw,12px)]"
             />
+
             {jersey.images.length > 1 && (
-              <div className="grid grid-cols-3 gap-4">
-                {jersey.images.slice(1).map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={`${jersey.team} detail ${i + 2}`}
-                    loading="lazy"
-                    className="w-full aspect-square object-cover bg-vault-surface outline-1 -outline-offset-1 outline-white/5 rounded-[min(1vw,12px)]"
-                  />
-                ))}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-4">
+                  <h2 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-vault-faint">
+                    Photo Previews
+                  </h2>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-vault-faint">
+                    View {selectedImageIndex + 1} / {jersey.images.length}
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {jersey.images.map((src, i) => {
+                    const isActive = selectedImageIndex === i;
+                    return (
+                      <button
+                        key={src}
+                        type="button"
+                        aria-label={`Show ${jersey.name} photo ${i + 1}`}
+                        aria-pressed={isActive}
+                        onClick={() => setSelectedImageIndex(i)}
+                        className={
+                          "group/thumb overflow-hidden rounded-[min(1vw,12px)] bg-vault-surface text-left outline-1 -outline-offset-1 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-heritage-red " +
+                          (isActive
+                            ? "outline-heritage-red"
+                            : "outline-white/10 hover:outline-white/35")
+                        }
+                      >
+                        <img
+                          src={src}
+                          alt={`${jersey.team} preview ${i + 1}`}
+                          loading="lazy"
+                          className="w-full aspect-square object-cover transition-transform duration-500 group-hover/thumb:scale-[1.03]"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
@@ -147,14 +178,6 @@ function JerseyDetail() {
                 photographed in a climate-controlled environment and assigned an inventory code
                 referenced throughout the archive.
               </p>
-              <img
-                src={twillDetail}
-                alt="Macro twill stitching detail"
-                width={1200}
-                height={800}
-                loading="lazy"
-                className="w-full aspect-[3/2] object-cover rounded-[min(1vw,12px)] outline-1 -outline-offset-1 outline-white/5"
-              />
             </div>
 
             <Link
