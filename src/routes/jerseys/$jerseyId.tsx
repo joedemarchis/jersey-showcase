@@ -121,7 +121,15 @@ function JerseyDetail() {
       </nav>
 
       <section className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <div className="max-w-7xl mx-auto px-6">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-vault-muted hover:text-foreground transition-colors mb-8"
+          >
+            <ArrowLeft className="size-3.5" />
+            Back to Archive
+          </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-7 space-y-6">
             <div className="relative group/image">
               <img
@@ -244,15 +252,9 @@ function JerseyDetail() {
               </p>
             </div>
 
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 px-4 py-2 ring-1 ring-vault-line rounded-sm text-sm hover:text-foreground text-vault-muted transition-colors"
-            >
-              <ArrowLeft className="size-4" />
-              Back to Archive
-            </Link>
           </div>
         </div>
+      </div>
       </section>
     </div>
   );
