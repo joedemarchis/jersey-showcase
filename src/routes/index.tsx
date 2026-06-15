@@ -145,8 +145,6 @@ function Index() {
   }, [activeLeague]);
 
   const filtered = useMemo(() => {
-    if (!isLeagueSelected) return leagueItems;
-
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     return leagueItems.filter((jersey) => {
@@ -156,10 +154,12 @@ function Index() {
       const searchableText = [
         jersey.name,
         jersey.team,
+        jersey.player,
         jersey.type,
         jersey.season,
         jersey.inventory,
         jersey.notes,
+        jersey.description,
       ]
         .join(" ")
         .toLowerCase();
@@ -167,7 +167,7 @@ function Index() {
 
       return matchesTeam && matchesType && matchesSeason && matchesSearch;
     });
-  }, [isLeagueSelected, leagueItems, searchTerm, seasonFilter, teamFilter, typeFilter]);
+  }, [leagueItems, searchTerm, seasonFilter, teamFilter, typeFilter]);
 
   const hasAdvancedFilters =
     teamFilter !== "All Teams" ||
