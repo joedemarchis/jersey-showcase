@@ -334,7 +334,6 @@ function Index() {
                   </button>
                 </div>
               </div>
-            )}
           </div>
 
           {filtered.length === 0 ? (
